@@ -9,16 +9,10 @@ from websockets.exceptions import (
     InvalidUpgrade,
 )
 from websockets.handshake_legacy import *
-from websockets.handshake_legacy import accept  # private API
+from websockets.utils import accept
 
 
 class HandshakeTests(unittest.TestCase):
-    def test_accept(self):
-        # Test vector from RFC 6455
-        key = "dGhlIHNhbXBsZSBub25jZQ=="
-        acc = "s3pPLMBiTxaQ9kYGzzhZRbK+xOo="
-        self.assertEqual(accept(key), acc)
-
     def test_round_trip(self):
         request_headers = Headers()
         request_key = build_request(request_headers)

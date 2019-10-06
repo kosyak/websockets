@@ -1,10 +1,18 @@
 import itertools
 import unittest
 
-from websockets.utils import apply_mask as py_apply_mask
+from websockets.utils import accept, apply_mask as py_apply_mask
 
 
-class UtilsTests(unittest.TestCase):
+class AcceptTests(unittest.TestCase):
+    def test_accept(self):
+        # Test vector from RFC 6455
+        key = "dGhlIHNhbXBsZSBub25jZQ=="
+        acc = "s3pPLMBiTxaQ9kYGzzhZRbK+xOo="
+        self.assertEqual(accept(key), acc)
+
+
+class ApplyMaskTests(unittest.TestCase):
     @staticmethod
     def apply_mask(*args, **kwargs):
         return py_apply_mask(*args, **kwargs)
@@ -73,7 +81,7 @@ except ImportError:  # pragma: no cover
     pass
 else:
 
-    class SpeedupsTests(UtilsTests):
+    class SpeedupsTests(ApplyMaskTests):
         @staticmethod
         def apply_mask(*args, **kwargs):
             return c_apply_mask(*args, **kwargs)
