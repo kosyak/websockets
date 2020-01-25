@@ -1,7 +1,8 @@
+import base64
 import itertools
 import unittest
 
-from websockets.utils import accept, apply_mask as py_apply_mask
+from websockets.utils import accept, apply_mask as py_apply_mask, generate_key
 
 
 # Test vector from RFC 6455
@@ -9,7 +10,11 @@ KEY = "dGhlIHNhbXBsZSBub25jZQ=="
 ACCEPT = "s3pPLMBiTxaQ9kYGzzhZRbK+xOo="
 
 
-class AcceptTests(unittest.TestCase):
+class UtilsTests(unittest.TestCase):
+    def test_generate_key(self):
+        key = generate_key()
+        self.assertEqual(len(base64.b64decode(key.encode())), 16)
+
     def test_accept(self):
         self.assertEqual(accept(KEY), ACCEPT)
 
