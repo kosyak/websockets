@@ -7,6 +7,17 @@ import time
 import unittest
 
 
+class GeneratorTestCase(unittest.TestCase):
+    def assertGeneratorReturns(self, gen):
+        """
+        Check that a generator-based coroutine completes and return its value.
+
+        """
+        with self.assertRaises(StopIteration) as raised:
+            next(gen)
+        return raised.exception.value
+
+
 class AsyncioTestCase(unittest.TestCase):
     """
     Base class for tests that sets up an isolated event loop for each test.
