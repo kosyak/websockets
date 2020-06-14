@@ -4,12 +4,14 @@ import unittest
 from websockets.utils import accept, apply_mask as py_apply_mask
 
 
+# Test vector from RFC 6455
+KEY = "dGhlIHNhbXBsZSBub25jZQ=="
+ACCEPT = "s3pPLMBiTxaQ9kYGzzhZRbK+xOo="
+
+
 class AcceptTests(unittest.TestCase):
     def test_accept(self):
-        # Test vector from RFC 6455
-        key = "dGhlIHNhbXBsZSBub25jZQ=="
-        acc = "s3pPLMBiTxaQ9kYGzzhZRbK+xOo="
-        self.assertEqual(accept(key), acc)
+        self.assertEqual(accept(KEY), ACCEPT)
 
 
 class ApplyMaskTests(unittest.TestCase):
